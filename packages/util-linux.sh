@@ -9,7 +9,7 @@ check_pkg_util_linux() {
 	fi
 
 	local version=$(wget -q -O - https://www.kernel.org/pub/linux/utils/util-linux/ | grep -o -E "v[0-9]+\.[0-9]+" | tail -n1 | sed 's/^v//')
-	version=$(wget -q -O - https://www.kernel.org/pub/linux/utils/util-linux/v${version}/ | grep -o -E "${1}-${version}(\.[0-9]+)?\.tar\.(xz|gz|bz2)" | sort -V | tail -1 | grep -o -E "${version}(\.[0-9]+)?")
+	version=$(wget -q -O - https://www.kernel.org/pub/linux/utils/util-linux/v${version}/ | grep -o -E "${1}-${version}(\.[0-9]+)*(-rc[0-9]+)?\.tar\.(xz|gz|bz2)" | sort -V | tail -1 | grep -o -E "${version}(\.[0-9]+)*(-rc[0-9]+)?")
 	
 	if [[ "$br_version" != "$version" ]]; then
 		if [[ "$br_version" != "" ]] && [[ "$version" != "" ]]; then
