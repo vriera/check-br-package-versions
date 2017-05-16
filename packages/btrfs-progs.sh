@@ -1,6 +1,6 @@
 check_pkg_btrfs_progs() {
 	local br_version=$(grep -E "^$(echo ${1^^} | sed 's/-/_/g')_VERSION = " package/${1}/${1}.mk | awk '{print $3}')
-	local version=$(wget -q -O - https://git.kernel.org/cgit/linux/kernel/git/kdave/btrfs-progs.git/ | grep "Tag" -A 1 | grep -o -E "[0-9]+\.[0-9]+(\.[0-9]+)?" | tail -n1)
+	local version=$(wget -q -O - https://git.kernel.org/cgit/linux/kernel/git/kdave/btrfs-progs.git/ | grep "Tag" -A 1 | grep -o -E "[0-9]+\.[0-9]+(\.[0-9]+)?(-rc[0-9]+)?" | tail -n1)
 	
 	if [[ "$br_version" != "$version" ]]; then
 		if [[ "$br_version" != "" ]] && [[ "$version" != "" ]]; then
