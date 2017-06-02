@@ -1,6 +1,6 @@
 check_pkg_bluez_utils() {
 	local br_version=$(grep -E "^$(echo ${1^^} | sed 's/-/_/g')_VERSION = " package/${1}/${1}.mk | awk '{print $3}')
-	local version=$(wget -q -O - https://git.kernel.org/pub/scm/bluetooth/bluez.git/ | grep -o -E 'bluez-[0-9]+(\.[0-9]+)*\.tar\.gz' | head -1 | grep -o -E '[0-9]+(\.[0-9]+)*')
+	local version=$(wget -q -O - https://git.kernel.org/pub/scm/bluetooth/bluez.git/refs/tags | grep -o -E "bluez-4(\.[0-9]+)*\.tar" | sort -V | tail -1 | grep -o -E "4(\.[0-9]+)*")
 	
 	if [[ "$br_version" != "$version" ]]; then
 		if [[ "$br_version" != "" ]] && [[ "$version" != "" ]]; then
